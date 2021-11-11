@@ -5,6 +5,7 @@ import Hero from './Components/hero_section';
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Upload from "./Components/upload"
 
+
 function App() {
   
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<SignInScreen />} />
         <Route path="home" element={<><Nav /><Hero /></>} />
         <Route path="upload" element={<Upload />} />
+        
       </Routes>
       </BrowserRouter>
   );
