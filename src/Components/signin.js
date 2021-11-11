@@ -3,6 +3,7 @@ import React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import 'firebase/compat/storage';
 
 // Configure Firebase.
 const config = {
@@ -22,7 +23,7 @@ const uiConfig = {
   signInFlow: 'popup',
   signInSuccessUrl: './dashboard',
   // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-  signInSuccessUrl: '/home',
+  signInSuccessUrl: '/upload',
   // We will display Google and Facebook as auth providers.
   signInOptions:[
     {
@@ -72,5 +73,8 @@ function SignInScreen() {
     </div>
   );
 }
+
+export var storage1 = firebase.storage();
+
 
 export default SignInScreen;
