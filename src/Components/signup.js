@@ -1,4 +1,4 @@
-// Import FirebaseAuth and firebase.
+
 import React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/compat/app';
@@ -7,8 +7,6 @@ import 'firebase/compat/storage';
 import { useForm } from 'react-hook-form';
 import "../App.css"
 
-
-// Configure Firebase.
 const config = {
     apiKey: "AIzaSyCpgy8EXYbQRgyGu41jDmMfQW4RWIUnQyY",
     authDomain: "react1-822a3.firebaseapp.com",
@@ -67,31 +65,33 @@ const uiConfig = {
   }]
 };
 
-function SignInScreen() {
+function SignupScreen() {
 
   const { register, handleSubmit } = useForm();
     const onSubmit = data => {
       console.log(data);
       var gmail1 = data.gmail;
       var password1 = data.password
-      firebase.auth().signInWithEmailAndPassword(gmail1, password1)
-       .then((userCredential) => {
-       
-       var user = userCredential.user;
-       upload1();
+      firebase.auth().createUserWithEmailAndPassword(gmail1, password1)
+  .then((userCredential) => {
+     upload1();
        window.location = '/upload';
-       
-       
-       })
-       .catch((error) => {
-       var errorCode = error.code;
-       var errorMessage = error.message;
-       });
+    
+    var user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+  });
 
       
     }
     function upload1(){
-      alert("successful signin");
+      firebase.auth().currentUser.sendEmailVerification()
+  .then(() => {
+    alert("Verification mail send successfully");
+  });
     }
 
     firebase.auth().onAuthStateChanged((user) => {
@@ -111,17 +111,18 @@ function SignInScreen() {
   return (
     <div className="head">
       <h1>Project-1</h1>
-      <p>Please sign-in:</p>
+      <p>Please sign-Up:</p>
       <div className="card contact-form">
       <div className="contact-form-block w-form">
       <form className="contact-form-grid" onSubmit={handleSubmit(onSubmit)}>
       
     <input placeholder="Gmail" className="input w-input" {...register("gmail")} /> 
     <input placeholder="Password" className="input w-input"  {...register("password")} /> 
+    <input placeholder="Confirm" className="input w-input"  {...register("confirm_password")} />
+
       <input className="button-primary w-button"  type="submit" />
     </form>
     <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-    <div>New User?<a href="/signup"> Signup</a></div>
     </div></div>
       
       
@@ -132,4 +133,4 @@ function SignInScreen() {
 export var storage1 = firebase.storage();
 
 
-export default SignInScreen;
+export default SignupScreen;

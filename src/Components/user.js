@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const User = () => {
-    const [newUser, setNewUser] = useState(
+    
+    const [newUser, setNewAuthor] = useState(
         {
             name: '',
             birthdate: '',
             photo: '',
         }
     );
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
